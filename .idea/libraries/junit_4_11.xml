@@ -2,8 +2,10 @@
   <library name="junit-4.11">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/junit-4.11.jar!/" />
+      <root url="file://$PROJECT_DIR$/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
   </library>
 </component>
