@@ -5,8 +5,9 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
 
-        WelcomeMessage.welcome();
-        MainMenu.showOptions();
-        MainMenu.manageOptions();
+        MainMenu mainMenu = new MainMenu();
+        mainMenu.welcome();
+        mainMenu.showOptions();
+        mainMenu.manageOptions();
     }
 }
