@@ -13,9 +13,9 @@ public class MainMenu {
         Scanner scanner = new Scanner(System.in);
         // get the input as a string
         int option = scanner.nextInt();
-
+        Book book = new Book();
         if (option == 1) {
-            Book.showList();
+            book.showList();
         }
     }
 }
