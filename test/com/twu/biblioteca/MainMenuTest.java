@@ -11,11 +11,25 @@ import static org.junit.Assert.assertEquals;
 public class MainMenuTest {
 
     @Test
-    public void shouldDisplayMainMenu() {
+    public void shouldDisplayWelcomeMessage() {
+        MainMenu mainMenu = new MainMenu();
+
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
 
-        MainMenu.showOptions();
+        mainMenu.welcome();
+
+        assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!" + System.getProperty("line.separator"), output.toString());
+    }
+
+    @Test
+    public void shouldDisplayMainMenu() {
+        MainMenu mainMenu = new MainMenu();
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+
+        mainMenu.showOptions();
 
         assertEquals("Please select an option from the following:\n" +
                 "1. List of books\n" + ">" , output.toString());
@@ -23,13 +37,15 @@ public class MainMenuTest {
 
    @Test
     public void shouldDisplayBookListAfterSelectingOption() {
+        MainMenu mainMenu = new MainMenu();
         System.setIn(new ByteArrayInputStream("1".getBytes()));
-        MainMenu.manageOptions();
+
+        mainMenu.manageOptions();
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
-        Book book = new Book();
-        book.showList();
+
+        mainMenu.showList();
 
         assertEquals("1. Clean Code | Robert C. Martin | 2008\n" +
                 "2. Don't Make Me Think | Steve Krug | 2000\n" +
