@@ -52,4 +52,26 @@ public class MainMenuTest {
                 "3. Test Driven Development | Kent Beck | 2000\n" +
                 System.getProperty("line.separator"), output.toString());
     }
+
+    @Test
+    public void shouldDisplayInvalidMessageWhenInvalidOptionSelected() {
+        MainMenu mainMenu = new MainMenu();
+
+        System.setIn(new ByteArrayInputStream(("a" + System.getProperty("line.separator") + "1").getBytes()));
+
+        mainMenu.showOptions();
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+
+        mainMenu.manageOptions();
+
+        assertEquals("Please select a valid option!" +
+                System.getProperty("line.separator") +
+                        "1. Clean Code | Robert C. Martin | 2008\n" +
+                        "2. Don't Make Me Think | Steve Krug | 2000\n" +
+                        "3. Test Driven Development | Kent Beck | 2000\n" +
+                        System.getProperty("line.separator"),
+                output.toString());
+    }
 }

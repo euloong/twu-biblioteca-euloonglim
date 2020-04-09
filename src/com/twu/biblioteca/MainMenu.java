@@ -17,14 +17,24 @@ public class MainMenu {
         System.out.println("1. Clean Code | Robert C. Martin | 2008\n" + "2. Don't Make Me Think | Steve Krug | 2000\n" + "3. Test Driven Development | Kent Beck | 2000\n");
     }
 
-    public void manageOptions() {
-        // create scanner to read command-line input
-        Scanner scanner = new Scanner(System.in);
-        // get the input as a string
-        int option = scanner.nextInt();
+    public void showInvalidMessage() {
+        System.out.println("Please select a valid option!");
+    }
 
-        if (option == 1) {
-            showList();
+    public void manageOptions() {
+        int i = 0;
+        Scanner scanner = new Scanner(System.in);
+
+        while (i == 0) {
+            String input = scanner.next();
+            if(input.equals("1")) {
+                showList();
+                i = 1;
+            }
+            else {
+                showInvalidMessage();
+                //i = 1;
+            }
         }
     }
 }
