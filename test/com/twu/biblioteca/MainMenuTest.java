@@ -1,14 +1,19 @@
 package com.twu.biblioteca;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
-import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 
 public class MainMenuTest {
+
+    @Rule
+    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     @Test
     public void shouldDisplayWelcomeMessage() {
@@ -32,7 +37,9 @@ public class MainMenuTest {
         mainMenu.showOptions();
 
         assertEquals("Please select an option from the following:\n" +
-                "1. List of books\n" + ">" , output.toString());
+                "1. List of books\n" +
+                "2. Quit\n" +
+                ">" , output.toString());
     }
 
    @Test
@@ -73,5 +80,18 @@ public class MainMenuTest {
                         "3. Test Driven Development | Kent Beck | 2000\n" +
                         System.getProperty("line.separator"),
                 output.toString());
+    }
+
+    @Test
+    public void shouldCloseApplicationWhenQuitOptionSelected() {
+        MainMenu mainMenu = new MainMenu();
+
+        System.setIn(new ByteArrayInputStream(("2").getBytes()));
+
+        mainMenu.showOptions();
+
+        exit.expectSystemExit();
+        mainMenu.manageOptions();
+
     }
 }

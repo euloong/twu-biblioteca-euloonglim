@@ -9,7 +9,9 @@ public class MainMenu {
     }
 
     public void showOptions() {
-        System.out.println("Please select an option from the following:\n" + "1. List of books");
+        System.out.println("Please select an option from the following:");
+        System.out.println("1. List of books");
+        System.out.println("2. Quit");
         System.out.print(">");
     }
 
@@ -30,6 +32,10 @@ public class MainMenu {
             if(input.equals("1")) {
                 showList();
                 counter = 1;
+            }
+            else if(input.equals("2")) {
+                System.out.println("Goodbye!");
+                System.exit(0);
             }
             else {
                 showInvalidMessage();
