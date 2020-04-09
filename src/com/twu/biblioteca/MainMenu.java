@@ -22,18 +22,17 @@ public class MainMenu {
     }
 
     public void manageOptions() {
-        int i = 0;
+        int counter = 0;
         Scanner scanner = new Scanner(System.in);
 
-        while (i == 0) {
+        while (counter == 0) {
             String input = scanner.next();
             if(input.equals("1")) {
                 showList();
-                i = 1;
+                counter = 1;
             }
             else {
                 showInvalidMessage();
-                //i = 1;
             }
         }
     }
