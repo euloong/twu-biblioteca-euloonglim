@@ -22,7 +22,7 @@ public class MainMenuTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
 
-        mainMenu.welcome();
+        mainMenu.showWelcomeMessage();
 
         assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!" + System.getProperty("line.separator"), output.toString());
     }
@@ -56,8 +56,7 @@ public class MainMenuTest {
 
         assertEquals("1. Clean Code | Robert C. Martin | 2008\n" +
                 "2. Don't Make Me Think | Steve Krug | 2000\n" +
-                "3. Test Driven Development | Kent Beck | 2000\n" +
-                System.getProperty("line.separator"), output.toString());
+                "3. Test Driven Development | Kent Beck | 2000\n", output.toString());
     }
 
     @Test
@@ -77,9 +76,7 @@ public class MainMenuTest {
                 System.getProperty("line.separator") +
                         "1. Clean Code | Robert C. Martin | 2008\n" +
                         "2. Don't Make Me Think | Steve Krug | 2000\n" +
-                        "3. Test Driven Development | Kent Beck | 2000\n" +
-                        System.getProperty("line.separator"),
-                output.toString());
+                        "3. Test Driven Development | Kent Beck | 2000\n", output.toString());
     }
 
     @Test
@@ -92,6 +89,5 @@ public class MainMenuTest {
 
         exit.expectSystemExit();
         mainMenu.manageOptions();
-
     }
 }
