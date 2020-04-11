@@ -24,7 +24,8 @@ public class MainMenuTest {
 
         mainMenu.showWelcomeMessage();
 
-        assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!" + System.getProperty("line.separator"), output.toString());
+        assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!" +
+                System.getProperty("line.separator"), output.toString());
     }
 
     @Test
@@ -38,25 +39,28 @@ public class MainMenuTest {
 
         assertEquals("Please select an option from the following:\n" +
                 "1. List of books\n" +
-                "2. Quit\n" +
+                "2. Checkout a book\n" +
+                "3. Quit\n" +
                 ">" , output.toString());
     }
 
    @Test
     public void shouldDisplayBookListAfterSelectingOption() {
         MainMenu mainMenu = new MainMenu();
-        System.setIn(new ByteArrayInputStream("1".getBytes()));
+        System.setIn(new ByteArrayInputStream(("1" + System.getProperty("line.separator")).getBytes()));
 
         mainMenu.manageOptions();
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
 
-        mainMenu.showList();
+        mainMenu.showBookList();
 
         assertEquals("1. Clean Code | Robert C. Martin | 2008\n" +
                 "2. Don't Make Me Think | Steve Krug | 2000\n" +
-                "3. Test Driven Development | Kent Beck | 2000\n", output.toString());
+                "3. Test Driven Development | Kent Beck | 2000\n" +
+                "Enter the number of the book you want to checkout:",
+                output.toString());
     }
 
     @Test
@@ -73,21 +77,37 @@ public class MainMenuTest {
         mainMenu.manageOptions();
 
         assertEquals("Please select a valid option!" +
-                System.getProperty("line.separator") +
-                        "1. Clean Code | Robert C. Martin | 2008\n" +
-                        "2. Don't Make Me Think | Steve Krug | 2000\n" +
-                        "3. Test Driven Development | Kent Beck | 2000\n", output.toString());
+                System.getProperty("line.separator"), output.toString());
     }
 
     @Test
     public void shouldCloseApplicationWhenQuitOptionSelected() {
         MainMenu mainMenu = new MainMenu();
 
-        System.setIn(new ByteArrayInputStream(("2").getBytes()));
+        System.setIn(new ByteArrayInputStream(("3").getBytes()));
 
         mainMenu.showOptions();
 
         exit.expectSystemExit();
         mainMenu.manageOptions();
+    }
+
+    @Test
+    public void shouldNotDisplayBookWhenCheckedOut() {
+        MainMenu mainMenu = new MainMenu();
+
+        System.setIn(new ByteArrayInputStream(("3" + System.getProperty("line.separator") + "1" + System.getProperty("line.separator") ).getBytes()));
+
+        mainMenu.manageBookList();
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+
+        mainMenu.showBookList();
+
+        assertEquals("1. Clean Code | Robert C. Martin | 2008\n" +
+                "2. Don't Make Me Think | Steve Krug | 2000\n" +
+                "Enter the number of the book you want to checkout:"
+                , output.toString());
     }
 }
