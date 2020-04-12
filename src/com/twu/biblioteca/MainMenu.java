@@ -10,6 +10,7 @@ public class MainMenu {
     private final String invalidMessage = "Please select a valid option!";
     private final String goodBye = "Goodbye!";
     private final String checkOutBookReference = "Enter the number of the book you want to checkout:";
+    private final String noBooks = "Sorry, no books left!";
 
     ArrayList<String> options = new ArrayList<>(Arrays.asList(
             "Please select an option from the following:",
@@ -38,6 +39,11 @@ public class MainMenu {
         System.out.println(checkOutBookReference);
     }
 
+    public void showNoBooksMessage() {
+        System.out.println(noBooks);
+    }
+
+
     public void showOptions() {
         for (int i = 0; i < options.size(); i++) {
             System.out.println(options.get(i));
@@ -50,6 +56,7 @@ public class MainMenu {
         Scanner optionsScanner = new Scanner(System.in);
 
         while (counter == 0) {
+            if(optionsScanner.hasNext()) {
             String userInput = optionsScanner.next();
             if (userInput.equals("1")) {
                 showBookList();
@@ -63,17 +70,27 @@ public class MainMenu {
             } else {
                 showInvalidMessage();
             }
+           }
+            else {
+                break;
+            }
         }
     }
 
     public void showBookList() {
-        for (int i = 0; i < this.books.size(); i++) {
-            Book book = this.books.get(i);
-            if (book.getCheckedOut() == false) {
-                int count = countCheckedOutBooks();
-                System.out.println(String.format(
-                        "%d. %s | %s | %d",
-                        (i + 1) - count, book.getTitle(), book.getAuthor(), book.getYearPublished()));
+        int count = countCheckedOutBooks();
+        if ((this.books.size() - count) == 0) {
+            showNoBooksMessage();
+            showOptions();
+            manageOptions();
+        } else {
+            for (int i = 0; i < this.books.size(); i++) {
+                Book book = this.books.get(i);
+                if (book.getCheckedOut() == false) {
+                    int j = i + 1;
+                    System.out.println(String.format("%d. %s | %s | %d",
+                            j, book.getTitle(), book.getAuthor(), book.getYearPublished()));
+                }
             }
         }
     }
@@ -89,12 +106,12 @@ public class MainMenu {
     public void manageBookList() {
         int count = countCheckedOutBooks();
       if ((this.books.size() - count) == 0) {
-          System.out.println("Sorry, no books left!");
+          showNoBooksMessage();
       } else {
           showBookCheckOutReferenceMessage();
           Scanner bookScanner = new Scanner(System.in);
           String userInput = bookScanner.next();
-          int index = (Integer.parseInt(userInput) - 1) + count;
+          int index = Integer.parseInt(userInput) - 1;
           Book book = this.books.get(index);
           book.setCheckedOut();
       }
