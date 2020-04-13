@@ -11,14 +11,15 @@ public class MainMenu {
     private final String goodBye = "Goodbye!";
     private final String checkOutBookReference = "Enter the number of the book you want to checkout:";
     private final String noBooks = "Sorry, no books left!";
+    private final String selectOption = "Please select an option from the following:";
 
-    ArrayList<String> options = new ArrayList<>(Arrays.asList(
-            "Please select an option from the following:",
+    private ArrayList<String> options = new ArrayList<>(Arrays.asList(
+            //"Please select an option from the following:",
             "1. List of books",
             "2. Checkout a book",
             "3. Quit"));
 
-   ArrayList<Book> books = new ArrayList<>(Arrays.asList(
+   private ArrayList<Book> books = new ArrayList<>(Arrays.asList(
             new Book("Clean Code", "Robert C. Martin", 2008, false),
             new Book("Don't Make Me Think", "Steve Krug", 2000, false),
             new Book("Test Driven Development", "Kent Beck", 2000, false)));
@@ -45,26 +46,26 @@ public class MainMenu {
 
 
     public void showOptions() {
-        for (int i = 0; i < options.size(); i++) {
-            System.out.println(options.get(i));
+        System.out.print(selectOption + "\n");
+        for (String option : options) {
+            System.out.println(option);
         }
         System.out.print(">");
     }
 
     public void manageOptions() {
-        int counter = 0;
         Scanner optionsScanner = new Scanner(System.in);
-
-        while (counter == 0) {
+            while (true) {
             if(optionsScanner.hasNext()) {
             String userInput = optionsScanner.next();
-            if (userInput.equals("1")) {
+            String cleanUserInput = userInput.trim();
+            if (cleanUserInput.equals("1")) {
                 showBookList();
                 showOptions();
-            } else if (userInput.equals("2")) {
+            } else if (cleanUserInput.equals("2")) {
                 showBookList();
                 manageBookList();
-            } else if (userInput.equals("3")) {
+            } else if (cleanUserInput.equals("3")) {
                 showGoodbyeMessage();
                 System.exit(0);
             } else {
@@ -105,7 +106,7 @@ public class MainMenu {
 
     public void manageBookList() {
         int count = countCheckedOutBooks();
-      if ((this.books.size() - count) == 0) {
+        if (this.books.size() == count) {
           showNoBooksMessage();
       } else {
           showBookCheckOutReferenceMessage();
