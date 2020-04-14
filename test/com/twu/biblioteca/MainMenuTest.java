@@ -48,13 +48,13 @@ public class MainMenuTest {
     public void shouldDisplayBookListAfterSelectingOption() {
         MainMenu mainMenu = new MainMenu();
         System.setIn(new ByteArrayInputStream(("1" + System.getProperty("line.separator")).getBytes()));
-       //mainMenu.showOptions();
+
         mainMenu.manageOptions();
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
 
-        mainMenu.showBookList();
+        mainMenu.displayAvailableBooks();
 
         assertEquals("1. Clean Code | Robert C. Martin | 2008\n" +
                 "2. Don't Make Me Think | Steve Krug | 2000\n" +
@@ -97,12 +97,12 @@ public class MainMenuTest {
         System.setIn(new ByteArrayInputStream(("3" + System.getProperty("line.separator") +
                 "1" + System.getProperty("line.separator") ).getBytes()));
 
-        mainMenu.manageBookList();
+        mainMenu.checkOutBook();
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
 
-        mainMenu.showBookList();
+        mainMenu.displayAvailableBooks();
 
         assertEquals("1. Clean Code | Robert C. Martin | 2008\n" +
                 "2. Don't Make Me Think | Steve Krug | 2000\n", output.toString());

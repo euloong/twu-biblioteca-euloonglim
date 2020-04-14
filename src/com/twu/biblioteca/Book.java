@@ -10,7 +10,7 @@ public class Book {
         this.title = title;
         this.author = author;
         this.yearPublished = yearPublished;
-        this.checkedOut = false;
+        this.checkedOut = checkedOut;
     }
 
     public String getTitle() {

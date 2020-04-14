@@ -6,47 +6,39 @@ import java.util.Scanner;
 
 public class MainMenu {
 
-    private final String welcome = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-    private final String invalidMessage = "Please select a valid option!";
-    private final String goodBye = "Goodbye!";
-    private final String checkOutBookReference = "Enter the number of the book you want to checkout:";
-    private final String noBooks = "Sorry, no books left!";
-    private final String selectOption = "Please select an option from the following:";
-
     private ArrayList<String> options = new ArrayList<>(Arrays.asList(
-            //"Please select an option from the following:",
             "1. List of books",
             "2. Checkout a book",
             "3. Quit"));
 
-   private ArrayList<Book> books = new ArrayList<>(Arrays.asList(
+    private ArrayList<Book> books = new ArrayList<>(Arrays.asList(
             new Book("Clean Code", "Robert C. Martin", 2008, false),
             new Book("Don't Make Me Think", "Steve Krug", 2000, false),
             new Book("Test Driven Development", "Kent Beck", 2000, false)));
 
     public void showWelcomeMessage() {
-        System.out.println(welcome);
+        System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
     }
 
     public void showInvalidMessage() {
-        System.out.println(invalidMessage);
+        System.out.println("Please select a valid option!");
     }
 
     public void showGoodbyeMessage() {
-        System.out.println(goodBye);
+        System.out.println("Goodbye!");
     }
 
     public void showBookCheckOutReferenceMessage() {
-        System.out.println(checkOutBookReference);
+        System.out.println("Enter the number of the book you want to checkout:");
     }
 
     public void showNoBooksMessage() {
-        System.out.println(noBooks);
+        System.out.println("Sorry, no books left!");
     }
 
 
     public void showOptions() {
-        System.out.print(selectOption + "\n");
+        System.out.print("Please select an option from the following:\n");
         for (String option : options) {
             System.out.println(option);
         }
@@ -60,11 +52,11 @@ public class MainMenu {
             String userInput = optionsScanner.next();
             String cleanUserInput = userInput.trim();
             if (cleanUserInput.equals("1")) {
-                showBookList();
+                displayAvailableBooks();
                 showOptions();
             } else if (cleanUserInput.equals("2")) {
-                showBookList();
-                manageBookList();
+                displayAvailableBooks();
+                checkOutBook();
             } else if (cleanUserInput.equals("3")) {
                 showGoodbyeMessage();
                 System.exit(0);
@@ -78,9 +70,8 @@ public class MainMenu {
         }
     }
 
-    public void showBookList() {
-        int count = countCheckedOutBooks();
-        if ((this.books.size() - count) == 0) {
+    public void displayAvailableBooks() {
+        if (this.books.size() == countCheckedOutBooks()) { //forgot to update this on last commit
             showNoBooksMessage();
             showOptions();
             manageOptions();
@@ -97,16 +88,15 @@ public class MainMenu {
     }
 
     public int countCheckedOutBooks() {
-        int count = 0;
+      int count = 0;
         for (Book b : this.books){
             if (b.getCheckedOut()) count++;
         }
         return count;
     }
 
-    public void manageBookList() {
-        int count = countCheckedOutBooks();
-        if (this.books.size() == count) {
+    public void checkOutBook() {
+        if (this.books.size() == countCheckedOutBooks()) {
           showNoBooksMessage();
       } else {
           showBookCheckOutReferenceMessage();
