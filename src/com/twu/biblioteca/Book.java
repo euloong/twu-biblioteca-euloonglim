@@ -13,23 +13,16 @@ public class Book {
         this.checkedOut = checkedOut;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthor() {
-     return author;
-   }
-
-   public int getYearPublished() {
-      return yearPublished;
-   }
-
-   public boolean getCheckedOut() {
+   public boolean isCheckedOut() {
         return checkedOut;
    }
 
    public void setCheckedOut() {
         this.checkedOut = true;
    }
+
+   public String toString() {
+        return title + " | " + author + " | " + yearPublished + " " + checkedOut; // added checkedOut so I can see the status
+   }
+
 }
