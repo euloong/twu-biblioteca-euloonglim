@@ -16,9 +16,7 @@ public class MainMenu {
             new Book("Don't Make Me Think", "Steve Krug", 2000, false),
             new Book("Test Driven Development", "Kent Beck", 2000, false)));
 
-    public void showWelcomeMessage() {
-        System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
-    }
+    public void showWelcomeMessage() { System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!"); }
 
     public void showInvalidMessage() {
         System.out.println("Please select a valid option!");
@@ -28,14 +26,11 @@ public class MainMenu {
         System.out.println("Goodbye!");
     }
 
-    public void showBookCheckOutReferenceMessage() {
-        System.out.println("Enter the number of the book you want to checkout:");
-    }
+    public void showBookCheckOutReferenceMessage() { System.out.println("Enter the number of the book you want to checkout:"); }
 
     public void showNoBooksMessage() {
         System.out.println("Sorry, no books left!");
     }
-
 
     public void showOptions() {
         System.out.print("Please select an option from the following:\n");
@@ -45,68 +40,40 @@ public class MainMenu {
         System.out.print(">");
     }
 
-    public void manageOptions() {
-        Scanner optionsScanner = new Scanner(System.in);
-            while (true) {
-            if(optionsScanner.hasNext()) {
-            String userInput = optionsScanner.next();
-            String cleanUserInput = userInput.trim();
-            if (cleanUserInput.equals("1")) {
-                displayAvailableBooks();
-                showOptions();
-            } else if (cleanUserInput.equals("2")) {
-                displayAvailableBooks();
-                checkOutBook();
-            } else if (cleanUserInput.equals("3")) {
-                showGoodbyeMessage();
-                System.exit(0);
-            } else {
-                showInvalidMessage();
-            }
-           }
-            else {
-                break;
-            }
-        }
-    }
-
     public void displayAvailableBooks() {
-        if (this.books.size() == countCheckedOutBooks()) { //forgot to update this on last commit
-            showNoBooksMessage();
-            showOptions();
-            manageOptions();
-        } else {
-            for (int i = 0; i < this.books.size(); i++) {
-                Book book = this.books.get(i);
-                if (book.getCheckedOut() == false) {
-                    int j = i + 1;
-                    System.out.println(String.format("%d. %s | %s | %d",
-                            j, book.getTitle(), book.getAuthor(), book.getYearPublished()));
-                }
-            }
+        for (int i = 0; i < this.books.size(); i++) {
+            Book book = this.books.get(i);
+            if (book.isCheckedOut() == false) {
+                int reference = i + 1;
+                System.out.println(reference + ". " + book);
+           }
         }
-    }
-
-    public int countCheckedOutBooks() {
-      int count = 0;
-        for (Book b : this.books){
-            if (b.getCheckedOut()) count++;
-        }
-        return count;
     }
 
     public void checkOutBook() {
+        if (this.books.size() != countCheckedOutBooks()) {
+            showBookCheckOutReferenceMessage();
+            Scanner bookScanner = new Scanner(System.in);
+            String userInput = bookScanner.next();
+            int index = Integer.parseInt(userInput) - 1;
+            Book book = this.books.get(index);
+            book.setCheckedOut();
+       }
+    }
+
+    public int countCheckedOutBooks() {
+        int numberOfCheckedOutBooks = 0;
+        for (Book book : this.books){
+            if (book.isCheckedOut()) {
+                numberOfCheckedOutBooks++;
+            }
+        }
+        return numberOfCheckedOutBooks;
+    }
+
+    public void checkForAvailableBooks() {
         if (this.books.size() == countCheckedOutBooks()) {
-          showNoBooksMessage();
-      } else {
-          showBookCheckOutReferenceMessage();
-          Scanner bookScanner = new Scanner(System.in);
-          String userInput = bookScanner.next();
-          int index = Integer.parseInt(userInput) - 1;
-          Book book = this.books.get(index);
-          book.setCheckedOut();
-      }
-        showOptions();
-        manageOptions();
+            showNoBooksMessage();
+        }
     }
 }

@@ -1,8 +1,6 @@
 package com.twu.biblioteca;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -11,9 +9,6 @@ import java.io.PrintStream;
 import static org.junit.Assert.assertEquals;
 
 public class MainMenuTest {
-
-    @Rule
-    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     @Test //[#1.1]
     public void shouldDisplayWelcomeMessage() {
@@ -47,9 +42,10 @@ public class MainMenuTest {
    @Test //[#1.2] [#1.3]
     public void shouldDisplayBookListAfterSelectingOption() {
         MainMenu mainMenu = new MainMenu();
+
         System.setIn(new ByteArrayInputStream(("1" + System.getProperty("line.separator")).getBytes()));
 
-        mainMenu.manageOptions();
+       BibliotecaApp.manageOptions();
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
@@ -73,7 +69,7 @@ public class MainMenuTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
 
-        mainMenu.manageOptions();
+        BibliotecaApp.manageOptions();
 
         assertEquals("Please select a valid option!" +
                 System.getProperty("line.separator"), output.toString());
@@ -86,8 +82,13 @@ public class MainMenuTest {
         System.setIn(new ByteArrayInputStream(("3").getBytes()));
 
         mainMenu.showOptions();
-        exit.expectSystemExit();
-        mainMenu.manageOptions();
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+
+        mainMenu.showGoodbyeMessage();
+
+        assertEquals("Goodbye!\n", output.toString());
     }
 
     @Test //[#1.7]
