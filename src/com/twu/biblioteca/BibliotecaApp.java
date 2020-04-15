@@ -26,7 +26,6 @@ public class BibliotecaApp {
                        mainMenu.displayAvailableBooks();
                        mainMenu.checkOutBook();
                        mainMenu.showOptions();
-                       manageOptions();
                        break;
                    case "3":
                        mainMenu.showGoodbyeMessage();
