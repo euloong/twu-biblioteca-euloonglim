@@ -32,6 +32,8 @@ public class MainMenu {
         System.out.println("Sorry, no books left!");
     }
 
+    public void showSuccessfulCheckOutMessage() { System.out.println("Thank you! Enjoy the book"); }
+
     public void showOptions() {
         System.out.print("Please select an option from the following:\n");
         for (String option : options) {
@@ -51,14 +53,12 @@ public class MainMenu {
     }
 
     public void checkOutBook() {
-        if (this.books.size() != countCheckedOutBooks()) {
-            showBookCheckOutReferenceMessage();
             Scanner bookScanner = new Scanner(System.in);
             String userInput = bookScanner.next();
             int index = Integer.parseInt(userInput) - 1;
             Book book = this.books.get(index);
             book.setCheckedOut();
-       }
+        showSuccessfulCheckOutMessage();
     }
 
     public int countCheckedOutBooks() {
@@ -74,6 +74,9 @@ public class MainMenu {
     public void checkForAvailableBooks() {
         if (this.books.size() == countCheckedOutBooks()) {
             showNoBooksMessage();
+        }
+        else {
+            showBookCheckOutReferenceMessage();
         }
     }
 }

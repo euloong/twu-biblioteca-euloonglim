@@ -108,4 +108,21 @@ public class MainMenuTest {
         assertEquals("1. Clean Code | Robert C. Martin | 2008\n" +
                 "2. Don't Make Me Think | Steve Krug | 2000\n", output.toString());
     }
+
+    @Test //[#1.8]
+    public void shouldDisplaySuccessfulMessageWhenBookIsCheckedOut() {
+        MainMenu mainMenu = new MainMenu();
+
+        System.setIn(new ByteArrayInputStream(("2").getBytes()));
+
+        mainMenu.displayAvailableBooks();
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+
+        mainMenu.checkOutBook();
+
+        assertEquals("Thank you! Enjoy the book" +
+                System.getProperty("line.separator"), output.toString());
+    }
 }
