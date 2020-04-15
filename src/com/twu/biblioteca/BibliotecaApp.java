@@ -3,16 +3,15 @@ package com.twu.biblioteca;
 
 public class BibliotecaApp {
 
+    private static MainMenu mainMenu = new MainMenu();
+
     public static void main(String[] args) {
-        MainMenu mainMenu = new MainMenu();
-        BibliotecaApp bibliotecaApp = new BibliotecaApp();
         mainMenu.showWelcomeMessage();
         mainMenu.showOptions();
-        bibliotecaApp.manageOptions();
+        manageOptions();
     }
 
-    public void manageOptions() {
-        MainMenu mainMenu = new MainMenu();
+    public static void manageOptions() {
         boolean active = true;
        while (active == true) {
                switch (mainMenu.cleanUserInput()) {
@@ -35,7 +34,6 @@ public class BibliotecaApp {
                        mainMenu.showInvalidMessage();
                        break;
                }
-
-           }
-           }
+       }
+    }
 }

@@ -41,7 +41,6 @@ public class MainMenu {
     }
 
     public void displayAvailableBooks() {
-        // I'm stuck here, does not exclude checkedOutBooks
         for (int i = 0; i < this.books.size(); i++) {
             Book book = this.books.get(i);
             if (book.isCheckedOut() == false) {
@@ -53,16 +52,15 @@ public class MainMenu {
 
     public void checkOutBook() {
         if (this.books.size() == countCheckedOutBooks()) {
-            showNoBooksMessage();
-        } else {
+            //Not sure what to put here to continue with next step in BibliotecaApp, which is showOptions
+       } else {
             showBookCheckOutReferenceMessage();
             Scanner bookScanner = new Scanner(System.in);
             String userInput = bookScanner.next();
             int index = Integer.parseInt(userInput) - 1;
             Book book = this.books.get(index);
             book.setCheckedOut();
-            //System.out.println(book.isCheckedOut()); // prints out to "true" so the setter works
-        }
+       }
     }
 
     public int countCheckedOutBooks() { //To do: update to iterator - tried it but couldn't make it work
@@ -76,11 +74,8 @@ public class MainMenu {
     }
 
     public void checkForAvailableBooks() {
-        BibliotecaApp bibliotecaApp = new BibliotecaApp();
         if (this.books.size() == countCheckedOutBooks()) {
             showNoBooksMessage();
-            showOptions();
-            bibliotecaApp.manageOptions();
         }
     }
 
