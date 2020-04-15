@@ -22,7 +22,7 @@ public class Book {
    }
 
    public String toString() {
-        return title + " | " + author + " | " + yearPublished + " " + checkedOut; // added checkedOut so I can see the status
+        return title + " | " + author + " | " + yearPublished;
    }
 
 }

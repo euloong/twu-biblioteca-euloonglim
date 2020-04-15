@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class MainMenu {
 
@@ -9,6 +10,11 @@ public class MainMenu {
             "1. List of books",
             "2. Checkout a book",
             "3. Quit"));
+
+    private ArrayList<Book> books = new ArrayList<>(Arrays.asList(
+            new Book("Clean Code", "Robert C. Martin", 2008, false),
+            new Book("Don't Make Me Think", "Steve Krug", 2000, false),
+            new Book("Test Driven Development", "Kent Beck", 2000, false)));
 
     public void showWelcomeMessage() { System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!"); }
 
@@ -35,15 +41,52 @@ public class MainMenu {
     }
 
     public void displayAvailableBooks() {
-        BibliotecaApp bibliotecaApp = new BibliotecaApp();
-        // I'm stuck here, created a new instance of the class to access the books array but it does not store the setCheckedOut
-
-        for (int i = 0; i < bibliotecaApp.books.size(); i++) {
-            Book book = bibliotecaApp.books.get(i);
-            if (!book.isCheckedOut()) {
+        // I'm stuck here, does not exclude checkedOutBooks
+        for (int i = 0; i < this.books.size(); i++) {
+            Book book = this.books.get(i);
+            if (book.isCheckedOut() == false) {
                 int reference = i + 1;
                 System.out.println(reference + ". " + book);
            }
         }
+    }
+
+    public void checkOutBook() {
+        if (this.books.size() == countCheckedOutBooks()) {
+            showNoBooksMessage();
+        } else {
+            showBookCheckOutReferenceMessage();
+            Scanner bookScanner = new Scanner(System.in);
+            String userInput = bookScanner.next();
+            int index = Integer.parseInt(userInput) - 1;
+            Book book = this.books.get(index);
+            book.setCheckedOut();
+            //System.out.println(book.isCheckedOut()); // prints out to "true" so the setter works
+        }
+    }
+
+    public int countCheckedOutBooks() { //To do: update to iterator - tried it but couldn't make it work
+        int numberOfCheckedOutBooks = 0;
+        for (Book book : this.books){
+            if (book.isCheckedOut()) {
+                numberOfCheckedOutBooks++;
+            }
+        }
+        return numberOfCheckedOutBooks;
+    }
+
+    public void checkForAvailableBooks() {
+        BibliotecaApp bibliotecaApp = new BibliotecaApp();
+        if (this.books.size() == countCheckedOutBooks()) {
+            showNoBooksMessage();
+            showOptions();
+            bibliotecaApp.manageOptions();
+        }
+    }
+
+    public String cleanUserInput() {
+        Scanner optionsScanner = new Scanner(System.in);
+            String userInput = optionsScanner.next();
+            return userInput.trim();
     }
 }

@@ -84,24 +84,27 @@ public class MainMenuTest {
     @Test //[#1.6]
     public void shouldCloseApplicationWhenQuitOptionSelected() {
         MainMenu mainMenu = new MainMenu();
-        BibliotecaApp bibliotecaApp = new BibliotecaApp();
 
         System.setIn(new ByteArrayInputStream(("3").getBytes()));
 
         mainMenu.showOptions();
-        exit.expectSystemExit(); //To do: replace with a test for the goodbye message?
-        bibliotecaApp.manageOptions();
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+
+        mainMenu.showGoodbyeMessage();
+
+        assertEquals("Goodbye!\n", output.toString());
     }
 
     @Test //[#1.7]
     public void shouldNotDisplayBookWhenCheckedOut() {
         MainMenu mainMenu = new MainMenu();
-        BibliotecaApp bibliotecaApp = new BibliotecaApp();
 
         System.setIn(new ByteArrayInputStream(("3" + System.getProperty("line.separator") +
                 "1" + System.getProperty("line.separator") ).getBytes()));
 
-        bibliotecaApp.checkOutBook();
+        mainMenu.checkOutBook();
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
