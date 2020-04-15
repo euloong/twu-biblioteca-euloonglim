@@ -42,10 +42,10 @@ public class MainMenuTest {
    @Test //[#1.2] [#1.3]
     public void shouldDisplayBookListAfterSelectingOption() {
         MainMenu mainMenu = new MainMenu();
-       BibliotecaApp bibliotecaApp = new BibliotecaApp();
+
         System.setIn(new ByteArrayInputStream(("1" + System.getProperty("line.separator")).getBytes()));
 
-       bibliotecaApp.manageOptions();
+       BibliotecaApp.manageOptions();
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
@@ -70,7 +70,7 @@ public class MainMenuTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
 
-        bibliotecaApp.manageOptions();
+        BibliotecaApp.manageOptions();
 
         assertEquals("Please select a valid option!" +
                 System.getProperty("line.separator"), output.toString());

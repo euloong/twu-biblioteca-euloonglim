@@ -13,7 +13,7 @@ public class BibliotecaApp {
 
     public static void manageOptions() {
         boolean active = true;
-       while (active == true) {
+       while (active) {
                switch (mainMenu.cleanUserInput()) {
                    case "1":
                        mainMenu.checkForAvailableBooks();

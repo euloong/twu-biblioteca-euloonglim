@@ -51,9 +51,7 @@ public class MainMenu {
     }
 
     public void checkOutBook() {
-        if (this.books.size() == countCheckedOutBooks()) {
-            //Not sure what to put here to continue with next step in BibliotecaApp, which is showOptions
-       } else {
+        if (this.books.size() != countCheckedOutBooks()) {
             showBookCheckOutReferenceMessage();
             Scanner bookScanner = new Scanner(System.in);
             String userInput = bookScanner.next();
@@ -81,7 +79,11 @@ public class MainMenu {
 
     public String cleanUserInput() {
         Scanner optionsScanner = new Scanner(System.in);
-            String userInput = optionsScanner.next();
-            return userInput.trim();
+        String userInput = optionsScanner.next();
+        //String result = null;
+        //if (optionsScanner.hasNext()) {
+          return userInput.trim();
+       // }
+      //  return result;
     }
 }
