@@ -96,7 +96,7 @@ public class MainMenuTest {
         MainMenu mainMenu = new MainMenu();
 
         System.setIn(new ByteArrayInputStream(("3" + System.getProperty("line.separator") +
-                "1" + System.getProperty("line.separator") ).getBytes()));
+                "1" + System.getProperty("line.separator")).getBytes()));
 
         mainMenu.checkOutBook();
 
@@ -123,6 +123,24 @@ public class MainMenuTest {
         mainMenu.checkOutBook();
 
         assertEquals("Thank you! Enjoy the book" +
+                System.getProperty("line.separator"), output.toString());
+    }
+
+    @Test //[#1.9]
+    public void shouldDisplayUnsuccessfulMessageWhenBookIsNotAvailable() {
+        MainMenu mainMenu = new MainMenu();
+
+        System.setIn(new ByteArrayInputStream(("q").getBytes()));
+
+        mainMenu.displayAvailableBooks();
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+
+        mainMenu.checkOutBook();
+
+        assertEquals("Enter the number of the book you want to checkout:" +
+                System.getProperty("line.separator") + "Sorry, that book is not available" +
                 System.getProperty("line.separator"), output.toString());
     }
 }

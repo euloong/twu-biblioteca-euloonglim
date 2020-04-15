@@ -53,12 +53,22 @@ public class MainMenu {
     }
 
     public void checkOutBook() {
-            Scanner bookScanner = new Scanner(System.in);
-            String userInput = bookScanner.next();
-            int index = Integer.parseInt(userInput) - 1;
-            Book book = this.books.get(index);
-            book.setCheckedOut();
-        showSuccessfulCheckOutMessage();
+        showBookCheckOutReferenceMessage();
+        Scanner bookScanner = new Scanner(System.in);
+
+        String userInput = bookScanner.next();
+           try {
+               int index = Integer.parseInt(userInput) - 1;
+               if(index >= 0 && index < this.books.size()) {
+                   Book book = this.books.get(index);
+                   book.setCheckedOut();
+                   showSuccessfulCheckOutMessage();
+               } else {
+                   System.out.println("Sorry, that book is not available");
+               }
+           } catch (NumberFormatException e) {
+               System.out.println("Sorry, that book is not available");
+           }
     }
 
     public int countCheckedOutBooks() {
@@ -74,9 +84,6 @@ public class MainMenu {
     public void checkForAvailableBooks() {
         if (this.books.size() == countCheckedOutBooks()) {
             showNoBooksMessage();
-        }
-        else {
-            showBookCheckOutReferenceMessage();
         }
     }
 }
