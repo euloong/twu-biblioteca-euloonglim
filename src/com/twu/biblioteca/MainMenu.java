@@ -61,7 +61,7 @@ public class MainMenu {
        }
     }
 
-    public int countCheckedOutBooks() { //To do: update to iterator - tried it but couldn't make it work
+    public int countCheckedOutBooks() {
         int numberOfCheckedOutBooks = 0;
         for (Book book : this.books){
             if (book.isCheckedOut()) {
@@ -75,15 +75,5 @@ public class MainMenu {
         if (this.books.size() == countCheckedOutBooks()) {
             showNoBooksMessage();
         }
-    }
-
-    public String cleanUserInput() {
-        Scanner optionsScanner = new Scanner(System.in);
-        String userInput = optionsScanner.next();
-        //String result = null;
-        //if (optionsScanner.hasNext()) {
-          return userInput.trim();
-       // }
-      //  return result;
     }
 }

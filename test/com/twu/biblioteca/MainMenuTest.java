@@ -61,7 +61,6 @@ public class MainMenuTest {
     @Test //[#1.5]
     public void shouldDisplayInvalidMessageWhenInvalidOptionSelected() {
         MainMenu mainMenu = new MainMenu();
-        BibliotecaApp bibliotecaApp = new BibliotecaApp();
 
         System.setIn(new ByteArrayInputStream(("a" + System.getProperty("line.separator")).getBytes()));
 

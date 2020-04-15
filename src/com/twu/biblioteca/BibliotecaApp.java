@@ -1,6 +1,8 @@
 package com.twu.biblioteca;
 
 
+import java.util.Scanner;
+
 public class BibliotecaApp {
 
     private static MainMenu mainMenu = new MainMenu();
@@ -12,9 +14,12 @@ public class BibliotecaApp {
     }
 
     public static void manageOptions() {
+        Scanner optionsScanner = new Scanner(System.in);
         boolean active = true;
        while (active) {
-               switch (mainMenu.cleanUserInput()) {
+           if (optionsScanner.hasNext()) {
+               String userInput = optionsScanner.next();
+               switch (userInput.trim()) {
                    case "1":
                        mainMenu.checkForAvailableBooks();
                        mainMenu.displayAvailableBooks();
@@ -34,6 +39,10 @@ public class BibliotecaApp {
                        mainMenu.showInvalidMessage();
                        break;
                }
+           }
+           else {
+               break; //Allows test to stop
+           }
        }
     }
 }
