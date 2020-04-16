@@ -39,42 +39,6 @@ public class MainMenuTest {
                 ">" , output.toString());
     }
 
-   @Test //[#1.2] [#1.3]
-    public void shouldDisplayBookListAfterSelectingOption() {
-        MainMenu mainMenu = new MainMenu();
-
-        System.setIn(new ByteArrayInputStream(("1" + System.getProperty("line.separator")).getBytes()));
-
-       BibliotecaApp.manageOptions();
-
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(output));
-
-        mainMenu.displayAvailableBooks();
-
-        assertEquals("1. Clean Code | Robert C. Martin | 2008\n" +
-                "2. Don't Make Me Think | Steve Krug | 2000\n" +
-                "3. Test Driven Development | Kent Beck | 2000\n",
-                output.toString());
-    }
-
-    @Test //[#1.5]
-    public void shouldDisplayInvalidMessageWhenInvalidOptionSelected() {
-        MainMenu mainMenu = new MainMenu();
-
-        System.setIn(new ByteArrayInputStream(("a" + System.getProperty("line.separator")).getBytes()));
-
-        mainMenu.showOptions();
-
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(output));
-
-        BibliotecaApp.manageOptions();
-
-        assertEquals("Please select a valid option!" +
-                System.getProperty("line.separator"), output.toString());
-    }
-
     @Test //[#1.6]
     public void shouldCloseApplicationWhenQuitOptionSelected() {
         MainMenu mainMenu = new MainMenu();
@@ -139,8 +103,7 @@ public class MainMenuTest {
 
         mainMenu.checkOutBook();
 
-        assertEquals("Enter the number of the book you want to checkout:" +
-                System.getProperty("line.separator") + "Sorry, that book is not available" +
+        assertEquals("Sorry, that book is not available" +
                 System.getProperty("line.separator"), output.toString());
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class MainMenu {
+public class MainMenu implements MainMenuInterface {
 
     private ArrayList<String> options = new ArrayList<>(Arrays.asList(
             "1. List of books",
@@ -16,7 +16,9 @@ public class MainMenu {
             new Book("Don't Make Me Think", "Steve Krug", 2000, false),
             new Book("Test Driven Development", "Kent Beck", 2000, false)));
 
-    public void showWelcomeMessage() { System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!"); }
+    public void showWelcomeMessage() {
+        System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
+    }
 
     public void showInvalidMessage() {
         System.out.println("Please select a valid option!");
@@ -26,13 +28,17 @@ public class MainMenu {
         System.out.println("Goodbye!");
     }
 
-    public void showBookCheckOutReferenceMessage() { System.out.println("Enter the number of the book you want to checkout:"); }
+    public void showBookCheckOutReferenceMessage() {
+        System.out.println("Enter the number of the book you want to checkout:");
+    }
 
     public void showNoBooksMessage() {
         System.out.println("Sorry, no books left!");
     }
 
-    public void showSuccessfulCheckOutMessage() { System.out.println("Thank you! Enjoy the book"); }
+    public void showSuccessfulCheckOutMessage() {
+        System.out.println("Thank you! Enjoy the book");
+    }
 
     public void showOptions() {
         System.out.print("Please select an option from the following:\n");
@@ -42,33 +48,47 @@ public class MainMenu {
         System.out.print(">");
     }
 
+    public void checkForAvailableBooks() {
+        if (this.books.size() == countCheckedOutBooks()) {
+            showNoBooksMessage();
+        }
+    }
+
     public void displayAvailableBooks() {
         for (int i = 0; i < this.books.size(); i++) {
             Book book = this.books.get(i);
             if (book.isCheckedOut() == false) {
                 int reference = i + 1;
                 System.out.println(reference + ". " + book);
-           }
+            }
+        }
+    }
+
+    public void checkOutAvailableBook() {
+        if (this.books.size() == countCheckedOutBooks()) {
+            showNoBooksMessage();
+        } else {
+            showBookCheckOutReferenceMessage();
+            checkOutBook();
         }
     }
 
     public void checkOutBook() {
-        showBookCheckOutReferenceMessage();
         Scanner bookScanner = new Scanner(System.in);
 
         String userInput = bookScanner.next();
-           try {
-               int index = Integer.parseInt(userInput) - 1;
-               if(index >= 0 && index < this.books.size()) {
-                   Book book = this.books.get(index);
-                   book.setCheckedOut();
-                   showSuccessfulCheckOutMessage();
-               } else {
-                   System.out.println("Sorry, that book is not available");
-               }
-           } catch (NumberFormatException e) {
-               System.out.println("Sorry, that book is not available");
-           }
+        try {
+            int index = Integer.parseInt(userInput) - 1;
+            if (index >= 0 && index < this.books.size()) {
+                Book book = this.books.get(index);
+                book.setCheckedOut();
+                showSuccessfulCheckOutMessage();
+            } else {
+                System.out.println("Sorry, that book is not available");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Sorry, that book is not available");
+        }
     }
 
     public int countCheckedOutBooks() {
@@ -79,11 +99,5 @@ public class MainMenu {
             }
         }
         return numberOfCheckedOutBooks;
-    }
-
-    public void checkForAvailableBooks() {
-        if (this.books.size() == countCheckedOutBooks()) {
-            showNoBooksMessage();
-        }
     }
 }
