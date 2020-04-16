@@ -62,14 +62,16 @@ public class MainMenuTest {
     public void shouldDisplayInvalidMessageWhenInvalidOptionSelected() {
         MainMenu mainMenu = new MainMenu();
 
-        System.setIn(new ByteArrayInputStream(("a" + System.getProperty("line.separator")).getBytes()));
+        //System.setIn(new ByteArrayInputStream(("a" + System.getProperty("line.separator")).getBytes())); is it ok to remove this?
 
-        mainMenu.showOptions();
+        //mainMenu.showOptions(); is it ok to remove this?
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
 
-        BibliotecaApp.manageOptions();
+        //BibliotecaApp.manageOptions();
+        mainMenu.showInvalidMessage(); //Is calling the method directly rather than simulating the user input the correct way to go?
+        // Should I create a test for the routing logic as well in a new BibliotecaApp test class?
 
         assertEquals("Please select a valid option!" +
                 System.getProperty("line.separator"), output.toString());
@@ -122,7 +124,8 @@ public class MainMenuTest {
 
         mainMenu.checkOutBook();
 
-        assertEquals("Thank you! Enjoy the book" +
+        assertEquals("Enter the number of the book you want to checkout:" +
+                System.getProperty("line.separator") + "Thank you! Enjoy the book" +
                 System.getProperty("line.separator"), output.toString());
     }
 
