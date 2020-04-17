@@ -21,13 +21,11 @@ public class BibliotecaApp {
                 String userInput = optionsScanner.next();
                 switch (userInput.trim()) {
                     case "1":
-                        mainMenuInterface.checkForAvailableBooks();
                         mainMenuInterface.displayAvailableBooks();
                         mainMenuInterface.showOptions();
                         break;
                     case "2":
-                        mainMenuInterface.displayAvailableBooks();
-                        mainMenuInterface.checkOutAvailableBook();
+                        mainMenuInterface.displayAvailableBooksToCheckOut();
                         mainMenuInterface.showOptions();
                         break;
                     case "3":

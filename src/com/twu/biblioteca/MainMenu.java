@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class MainMenu implements MainMenuInterface {
 
     private ArrayList<String> options = new ArrayList<>(Arrays.asList(
-            "1. List of books",
+            "1. List books",
             "2. Checkout a book",
             "3. Quit"));
 
@@ -15,6 +15,7 @@ public class MainMenu implements MainMenuInterface {
             new Book("Clean Code", "Robert C. Martin", 2008, false),
             new Book("Don't Make Me Think", "Steve Krug", 2000, false),
             new Book("Test Driven Development", "Kent Beck", 2000, false)));
+    private Object index;
 
     public void showWelcomeMessage() {
         System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
@@ -40,55 +41,8 @@ public class MainMenu implements MainMenuInterface {
         System.out.println("Thank you! Enjoy the book");
     }
 
-    public void showOptions() {
-        System.out.print("Please select an option from the following:\n");
-        for (String option : options) {
-            System.out.println(option);
-        }
-        System.out.print(">");
-    }
-
-    public void checkForAvailableBooks() {
-        if (this.books.size() == countCheckedOutBooks()) {
-            showNoBooksMessage();
-        }
-    }
-
-    public void displayAvailableBooks() {
-        for (int i = 0; i < this.books.size(); i++) {
-            Book book = this.books.get(i);
-            if (book.isCheckedOut() == false) {
-                int reference = i + 1;
-                System.out.println(reference + ". " + book);
-            }
-        }
-    }
-
-    public void checkOutAvailableBook() {
-        if (this.books.size() == countCheckedOutBooks()) {
-            showNoBooksMessage();
-        } else {
-            showBookCheckOutReferenceMessage();
-            checkOutBook();
-        }
-    }
-
-    public void checkOutBook() {
-        Scanner bookScanner = new Scanner(System.in);
-
-        String userInput = bookScanner.next();
-        try {
-            int index = Integer.parseInt(userInput) - 1;
-            if (index >= 0 && index < this.books.size()) {
-                Book book = this.books.get(index);
-                book.setCheckedOut();
-                showSuccessfulCheckOutMessage();
-            } else {
-                System.out.println("Sorry, that book is not available");
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Sorry, that book is not available");
-        }
+    public void showUnsuccessfulCheckOutMessage() {
+        System.out.println("Sorry, that book is not available");
     }
 
     public int countCheckedOutBooks() {
@@ -99,5 +53,73 @@ public class MainMenu implements MainMenuInterface {
             }
         }
         return numberOfCheckedOutBooks;
+    }
+
+    //Option 1. List Books
+
+    //Checks if there are any books left to be checked out
+    //If there are then it displays the available books
+    public void displayAvailableBooks() {
+        if (this.books.size() == countCheckedOutBooks()) {
+            showNoBooksMessage();
+        } else {
+            for (int i = 0; i < this.books.size(); i++) {
+                Book book = this.books.get(i);
+                if (!book.isCheckedOut()) {
+                    int reference = i + 1;
+                    System.out.println(reference + ". " + book);
+                }
+            }
+        }
+    }
+
+    //Option 2. Checkout a Book
+
+    //Checks if there are any books left to be checked out
+    //If there are then it calls the method to display the available books
+    //Prints a prompting message for the user to make a selection
+    //Calls the checkOutBook method
+    public void displayAvailableBooksToCheckOut() {
+        if (this.books.size() == countCheckedOutBooks()) {
+            showNoBooksMessage();
+        } else {
+            displayAvailableBooks();
+            showBookCheckOutReferenceMessage();
+            checkOutBook();
+        }
+    }
+
+    //Converts the user input to an integer and checks if it exists within the book list
+    //If the book is available it sets the book to CheckedOut
+    //If there are input errors or the book is not available an error message is provided
+    //Still need to refactor this method into several smaller methods
+    public void checkOutBook() {
+       Scanner bookScanner = new Scanner(System.in);
+       String userInput = bookScanner.next();
+
+        try {
+            int index = Integer.parseInt(userInput) - 1;
+            if (index >= 0 && index < this.books.size()) {
+                Book book = this.books.get(index);
+               if (!book.isCheckedOut()) {
+                book.setCheckedOut();
+                showSuccessfulCheckOutMessage();
+               } else {
+                   showUnsuccessfulCheckOutMessage();
+                 }
+            } else {
+                showUnsuccessfulCheckOutMessage();
+            }
+        } catch (NumberFormatException e) {
+            showUnsuccessfulCheckOutMessage();
+        }
+    }
+
+    public void showOptions() {
+        System.out.print("Please select an option from the following:\n");
+        for (String option : options) {
+            System.out.println(option);
+        }
+        System.out.print(">");
     }
 }

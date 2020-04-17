@@ -2,60 +2,61 @@ package com.twu.biblioteca;
 
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class BibliotecaAppTest {
 
-    @Test
-    public void checkForAvailableBooksCalled() {
-        MainMenuInterfaceTest mainMenuInterface = new MainMenuInterfaceTest();
+    @Test //[#1.2 & #1.3]
+    public void displayAvailableBooksCalled() {
+        DummyMainMenuInterface mainMenuInterface = new DummyMainMenuInterface();
 
-        mainMenuInterface.checkForAvailableBooks();
+        mainMenuInterface.displayAvailableBooks();
 
-        assertTrue(mainMenuInterface.hasBeenCalled);
-    }
-
-    @Test //[#1.2] [#1.3]
-    public void shouldDisplayBookListAfterSelectingOption() {
-        MainMenu mainMenu = new MainMenu();
-        MainMenuInterfaceTest mainMenuInterface = new MainMenuInterfaceTest();
-
-        System.setIn(new ByteArrayInputStream(("1" + System.getProperty("line.separator")).getBytes()));
-
-        BibliotecaApp.manageOptions(mainMenuInterface);
-
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(output));
-
-        mainMenu.displayAvailableBooks();
-
-        assertEquals("1. Clean Code | Robert C. Martin | 2008\n" +
-                        "2. Don't Make Me Think | Steve Krug | 2000\n" +
-                        "3. Test Driven Development | Kent Beck | 2000\n",
-                         output.toString());
+        assertTrue(mainMenuInterface.displayAvailableBooksHasBeenCalled);
     }
 
     @Test //[#1.5]
-    public void shouldDisplayInvalidMessageWhenInvalidOptionSelected() {
-       MainMenu mainMenu = new MainMenu();
-       MainMenuInterfaceTest mainMenuInterface = new MainMenuInterfaceTest();
+    public void showInvalidMessageCalled() {
+        DummyMainMenuInterface mainMenuInterface = new DummyMainMenuInterface();
 
-       System.setIn(new ByteArrayInputStream(("a" + System.getProperty("line.separator")).getBytes()));
-       //Test will still pass if I remove the below line of code
-       BibliotecaApp.manageOptions(mainMenuInterface);
+        mainMenuInterface.showInvalidMessage();
 
-       ByteArrayOutputStream output = new ByteArrayOutputStream();
-       System.setOut(new PrintStream(output));
+        assertTrue(mainMenuInterface.showInvalidMessageHasBeenCalled);
+    }
 
-       //I'm not 100% sure that this is the correct way to perform the test
-       mainMenu.showInvalidMessage();
+    @Test //[#1.6]
+    public void showGoodbyeMessageCalled() {
+        DummyMainMenuInterface mainMenuInterface = new DummyMainMenuInterface();
 
-       assertEquals("Please select a valid option!" +
-                System.getProperty("line.separator"), output.toString());
+        mainMenuInterface.showGoodbyeMessage();
+
+        assertTrue(mainMenuInterface.showGoodbyeMessageHasBeenCalled);
+    }
+
+    @Test //[#1.7]
+    public void checkOutBookCalled() {
+        DummyMainMenuInterface mainMenuInterface = new DummyMainMenuInterface();
+
+        mainMenuInterface.checkOutBook();
+
+        assertTrue(mainMenuInterface.checkOutBookHasBeenCalled);
+    }
+
+    @Test //[#1.8]
+    public void showSuccessfulCheckOutMessageCalled() {
+        DummyMainMenuInterface mainMenuInterface = new DummyMainMenuInterface();
+
+        mainMenuInterface.showSuccessfulCheckOutMessage();
+
+        assertTrue(mainMenuInterface.showSuccessfulCheckOutMessageHasBeenCalled);
+    }
+
+    @Test //[#1.9]
+    public void showUnsuccessfulCheckOutMessageCalled() {
+        DummyMainMenuInterface mainMenuInterface = new DummyMainMenuInterface();
+
+        mainMenuInterface.showUnsuccessfulCheckOutMessage();
+
+        assertTrue(mainMenuInterface.showUnsuccessfulCheckOutMessageHasBeenCalled);
     }
 }
