@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class MainMenu implements MainMenuInterface {
+public class MainMenu implements DummyMainMenu {
 
     private ArrayList<String> options = new ArrayList<>(Arrays.asList(
             "1. List books",
@@ -89,28 +89,35 @@ public class MainMenu implements MainMenuInterface {
         }
     }
 
-    //Converts the user input to an integer and checks if it exists within the book list
-    //If the book is available it sets the book to CheckedOut
-    //If there are input errors or the book is not available an error message is provided
-    //Still need to refactor this method into several smaller methods
-    public void checkOutBook() {
-       Scanner bookScanner = new Scanner(System.in);
-       String userInput = bookScanner.next();
 
+    public void checkOutBook() {
         try {
-            int index = Integer.parseInt(userInput) - 1;
-            if (index >= 0 && index < this.books.size()) {
-                Book book = this.books.get(index);
-               if (!book.isCheckedOut()) {
-                book.setCheckedOut();
-                showSuccessfulCheckOutMessage();
-               } else {
-                   showUnsuccessfulCheckOutMessage();
-                 }
-            } else {
-                showUnsuccessfulCheckOutMessage();
-            }
+            checkUserSelectedValidBook();
         } catch (NumberFormatException e) {
+            showUnsuccessfulCheckOutMessage();
+        }
+    }
+
+    public void checkUserSelectedValidBook() {
+        int index = Integer.parseInt(userInput()) - 1;
+        if (index >= 0 && index < this.books.size()) {
+            bookIsCheckedOutOrNot(index);
+        } else {
+            showUnsuccessfulCheckOutMessage();
+        }
+    }
+
+    public String userInput() {
+        Scanner bookScanner = new Scanner(System.in);
+        return bookScanner.next();
+    }
+
+    public void bookIsCheckedOutOrNot(int index) {
+        Book book = this.books.get(index);
+        if (!book.isCheckedOut()) {
+            book.setCheckedOut();
+            showSuccessfulCheckOutMessage();
+        } else {
             showUnsuccessfulCheckOutMessage();
         }
     }

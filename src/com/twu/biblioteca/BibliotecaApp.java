@@ -13,7 +13,7 @@ public class BibliotecaApp {
         manageOptions(mainMenu);
     }
 
-    public static void manageOptions(MainMenuInterface mainMenuInterface) {
+    public static void manageOptions(DummyMainMenu dummyMainMenu) {
         Scanner optionsScanner = new Scanner(System.in);
         boolean active = true;
         while (active) {
@@ -21,19 +21,19 @@ public class BibliotecaApp {
                 String userInput = optionsScanner.next();
                 switch (userInput.trim()) {
                     case "1":
-                        mainMenuInterface.displayAvailableBooks();
-                        mainMenuInterface.showOptions();
+                        dummyMainMenu.displayAvailableBooks();
+                        dummyMainMenu.showOptions();
                         break;
                     case "2":
-                        mainMenuInterface.displayAvailableBooksToCheckOut();
-                        mainMenuInterface.showOptions();
+                        dummyMainMenu.displayAvailableBooksToCheckOut();
+                        dummyMainMenu.showOptions();
                         break;
                     case "3":
-                        mainMenuInterface.showGoodbyeMessage();
+                        dummyMainMenu.showGoodbyeMessage();
                         active = false;
                         break;
                     default:
-                        mainMenuInterface.showInvalidMessage();
+                        dummyMainMenu.showInvalidMessage();
                         break;
                 }
             }

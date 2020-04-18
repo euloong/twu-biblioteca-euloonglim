@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-public interface MainMenuInterface {
+public interface DummyMainMenu {
     //[#1.2 & #1.3]
     void displayAvailableBooks();
     //[#1.5]
