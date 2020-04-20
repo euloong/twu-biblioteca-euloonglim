@@ -55,10 +55,6 @@ public class MainMenu implements DummyMainMenu {
         return numberOfCheckedOutBooks;
     }
 
-    //Option 1. List Books
-
-    //Checks if there are any books left to be checked out
-    //If there are then it displays the available books
     public void displayAvailableBooks() {
         if (this.books.size() == countCheckedOutBooks()) {
             showNoBooksMessage();
@@ -73,12 +69,6 @@ public class MainMenu implements DummyMainMenu {
         }
     }
 
-    //Option 2. Checkout a Book
-
-    //Checks if there are any books left to be checked out
-    //If there are then it calls the method to display the available books
-    //Prints a prompting message for the user to make a selection
-    //Calls the checkOutBook method
     public void displayAvailableBooksToCheckOut() {
         if (this.books.size() == countCheckedOutBooks()) {
             showNoBooksMessage();
@@ -88,7 +78,6 @@ public class MainMenu implements DummyMainMenu {
             checkOutBook();
         }
     }
-
 
     public void checkOutBook() {
         try {

@@ -8,11 +8,13 @@ public class BibliotecaAppTest {
 
     @Test //[#1.2 & #1.3]
     public void displayAvailableBooksCalled() {
-        DummyMainMenuInterface mainMenuInterface = new DummyMainMenuInterface();
+        BibliotecaApp bibliotecaApp = new BibliotecaApp();
+        DummyMainMenuInterface dummyMainMenu = new DummyMainMenuInterface();
+        String userInput = "1";
 
-        mainMenuInterface.displayAvailableBooks();
+        bibliotecaApp.switchOptions(userInput, dummyMainMenu, true);
 
-        assertTrue(mainMenuInterface.displayAvailableBooksHasBeenCalled);
+        assertTrue(dummyMainMenu.displayAvailableBooksHasBeenCalled);
     }
 
     @Test //[#1.5]
