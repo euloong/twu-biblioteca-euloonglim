@@ -7,16 +7,16 @@ import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 
-public class MainMenuTest {
+public class MainMenuImplementationTest {
 
     @Test //[#1.1]
     public void shouldDisplayWelcomeMessage() {
-        MainMenu mainMenu = new MainMenu();
+        MainMenuImplementation mainMenuImplementation = new MainMenuImplementation();
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
 
-        mainMenu.showWelcomeMessage();
+        mainMenuImplementation.showWelcomeMessage();
 
         assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!" +
                 System.getProperty("line.separator"), output.toString());
@@ -24,12 +24,12 @@ public class MainMenuTest {
 
     @Test //[#1.4]
     public void shouldDisplayMainMenu() {
-        MainMenu mainMenu = new MainMenu();
+        MainMenuImplementation mainMenuImplementation = new MainMenuImplementation();
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
 
-        mainMenu.showOptions();
+        mainMenuImplementation.showOptions();
 
         assertEquals("Please select an option from the following:\n" +
                 "1. List books\n" +

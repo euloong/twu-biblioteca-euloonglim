@@ -5,38 +5,22 @@ import java.util.Scanner;
 
 public class BibliotecaApp {
 
-    private static MainMenu mainMenu = new MainMenu();
-
     public static void main(String[] args) {
-        mainMenu.showWelcomeMessage();
-        mainMenu.showOptions();
-        manageOptions(mainMenu);
+        MainMenuImplementation mainMenuImplementation = new MainMenuImplementation();
+        BibliotecaApp bibliotecaApp = new BibliotecaApp();
+
+        mainMenuImplementation.showWelcomeMessage();
+        mainMenuImplementation.showOptions();
+        bibliotecaApp.manageOptions(mainMenuImplementation);
     }
 
-    public static void manageOptions(DummyMainMenu dummyMainMenu) {
+    public void manageOptions(MainMenu mainMenu) {
         Scanner optionsScanner = new Scanner(System.in);
        boolean active = true;
        while (active) {
             if (optionsScanner.hasNext()) {
                 String userInput = optionsScanner.next();
-                switchOptions(userInput, dummyMainMenu, true);
-                //switch (userInput.trim()) {
-                //    case "1":
-                  //      dummyMainMenu.displayAvailableBooks();
-                  //     dummyMainMenu.showOptions();
-                 //       break;
-                  //  case "2":
-                  //      dummyMainMenu.displayAvailableBooksToCheckOut();
-                 //       dummyMainMenu.showOptions();
-                 //       break;
-                 //   case "3":
-                 //       dummyMainMenu.showGoodbyeMessage();
-                 //      active = false;
-                //        break;
-                //    default:
-                //        dummyMainMenu.showInvalidMessage();
-               //         break;
-              //  }
+                active = switchOptions(mainMenu, true, userInput);
             }
             else {
                 //Allows test to stop the loop
@@ -45,23 +29,24 @@ public class BibliotecaApp {
         }
     }
 
-    public static void switchOptions(String userInput, DummyMainMenu dummyMainMenu, boolean active) {
+    public boolean switchOptions(MainMenu mainMenu, boolean active, String userInput) {
         switch (userInput.trim()) {
-            case "1":
-                dummyMainMenu.displayAvailableBooks();
-                dummyMainMenu.showOptions();
+          case "1":
+              mainMenu.displayAvailableBooks();
+               mainMenu.showOptions();
                 break;
             case "2":
-                dummyMainMenu.displayAvailableBooksToCheckOut();
-                dummyMainMenu.showOptions();
+                mainMenu.displayAvailableBooksToCheckOut();
+                mainMenu.showOptions();
                 break;
             case "3":
-                dummyMainMenu.showGoodbyeMessage();
-                active = false;  //closes the program
+                mainMenu.showGoodbyeMessage();
+               active = false;
                 break;
             default:
-                dummyMainMenu.showInvalidMessage();
+               mainMenu.showInvalidMessage();
                 break;
         }
+        return active;
     }
 }

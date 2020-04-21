@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-public class DummyMainMenuInterface implements DummyMainMenu {
+public class DummyMainMenu implements MainMenu {
 
     protected boolean displayAvailableBooksHasBeenCalled = false;
     protected boolean showInvalidMessageHasBeenCalled = false;
