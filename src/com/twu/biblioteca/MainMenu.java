@@ -7,12 +7,6 @@ public interface MainMenu {
     void showInvalidMessage();
     //[#1.6]
     void showGoodbyeMessage();
-    //[#1.7]
-    void checkOutBook();
-    //[#1.8]
-    void showSuccessfulCheckOutMessage();
-    //[#1.9]
-    void showUnsuccessfulCheckOutMessage();
 
     void showOptions();
     void displayAvailableBooksToCheckOut();

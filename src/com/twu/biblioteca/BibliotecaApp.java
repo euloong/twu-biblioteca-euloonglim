@@ -20,16 +20,13 @@ public class BibliotecaApp {
        while (active) {
             if (optionsScanner.hasNext()) {
                 String userInput = optionsScanner.next();
-                active = switchOptions(mainMenu, true, userInput);
-            }
-            else {
-                //Allows test to stop the loop
-                break;
+                active = switchOptions(mainMenu, userInput);
             }
         }
     }
 
-    public boolean switchOptions(MainMenu mainMenu, boolean active, String userInput) {
+    public boolean switchOptions(MainMenu mainMenu, String userInput) {
+        boolean active = true;
         switch (userInput.trim()) {
           case "1":
               mainMenu.displayAvailableBooks();
