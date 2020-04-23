@@ -12,13 +12,13 @@ public class MainMenuImplementation implements MainMenu {
             "3. List movies",
             "4. Quit"));
 
-    private ArrayList<Book> books = new ArrayList<>(Arrays.asList(
+    private ArrayList<Item> books = new ArrayList<Item>(Arrays.asList(
             new Book("Clean Code", "Robert C. Martin", 2008, false),
             new Book("Don't Make Me Think", "Steve Krug", 2000, false),
             new Book("Test Driven Development", "Kent Beck", 2000, false)));
-   // private Object index;
+    // private Object index;
 
-    private ArrayList<Movie> movies = new ArrayList<>(Arrays.asList(
+    private ArrayList<Item> movies = new ArrayList<Item>(Arrays.asList(
             new Movie("Star Wars: Episode IV - A New Hope", "George Lucas", 1977, "9"),
             new Movie("Star Wars: Episode V - The Empire Strikes Back", "Irvin Kershner", 1980, "10"),
             new Movie("Star Wars: Episode VI - Return of the Jedi", "Richard Marquand", 1983, "8")));
@@ -53,8 +53,8 @@ public class MainMenuImplementation implements MainMenu {
 
     public int countCheckedOutBooks() {
         int numberOfCheckedOutBooks = 0;
-        for (Book book : this.books){
-            if (book.isCheckedOut()) {
+        for (Item item : this.books) {
+            if (item.isCheckedOut()) {
                 numberOfCheckedOutBooks++;
             }
         }
@@ -65,30 +65,27 @@ public class MainMenuImplementation implements MainMenu {
         if (this.books.size() == countCheckedOutBooks()) {
             showNoBooksMessage();
         } else {
-            for (int i = 0; i < this.books.size(); i++) {
-                Book book = this.books.get(i);
-                if (!book.isCheckedOut()) {
-                    int reference = i + 1;
-                    System.out.println(reference + ". " + book);
-                }
+            displayItems(this.books);
+        }
+    }
+
+    public void displayAvailableMovies() {
+        //  if (this.movies.size() == countCheckedOutMovies()) {
+        //      showNoMoviesMessage();
+        //  } else {
+        displayItems(this.movies);
+    }
+
+    private void displayItems(ArrayList<Item> items) {
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
+            if (!item.isCheckedOut()) {
+                int reference = i + 1;
+                System.out.println(reference + ". " + item);
             }
         }
     }
-/////////////////////////////
-    public void displayAvailableMovies() {
-      //  if (this.movies.size() == countCheckedOutMovies()) {
-      //      showNoMoviessMessage();
-      //  } else {
-            for (int i = 0; i < this.movies.size(); i++) {
-                Movie movie = this.movies.get(i);
-               // if (!movie.isCheckedOut()) {
-                    int reference = i + 1;
-                    System.out.println(reference + ". " + movie);
-                //}
-            //}
-        }
-    }
-///////////////////////////////////
+
     public void displayAvailableBooksToCheckOut() {
         if (this.books.size() == countCheckedOutBooks()) {
             showNoBooksMessage();
@@ -122,9 +119,9 @@ public class MainMenuImplementation implements MainMenu {
     }
 
     public void bookIsCheckedOutOrNot(int index) {
-        Book book = this.books.get(index);
-        if (!book.isCheckedOut()) {
-            book.setCheckedOut();
+        Item item = this.books.get(index);
+        if (!item.isCheckedOut()) {
+            item.setCheckedOut();
             showSuccessfulCheckOutMessage();
         } else {
             showUnsuccessfulCheckOutMessage();

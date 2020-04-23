@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-public class Book {
+public class Book implements Item {
     private final String title;
     private final String author;
     private final int yearPublished;
@@ -13,10 +13,12 @@ public class Book {
         this.checkedOut = checkedOut;
     }
 
+   @Override
    public boolean isCheckedOut() {
         return checkedOut;
    }
 
+   @Override
    public void setCheckedOut() {
         this.checkedOut = true;
    }

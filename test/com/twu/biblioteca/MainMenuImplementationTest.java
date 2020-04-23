@@ -32,7 +32,8 @@ public class MainMenuImplementationTest {
         assertEquals("Please select an option from the following:\n" +
                 "1. List books\n" +
                 "2. Checkout a book\n" +
-                "3. Quit\n" +
+                "3. List movies\n" +
+                "4. Quit\n" +
                 ">" , output.toString());
     }
 
