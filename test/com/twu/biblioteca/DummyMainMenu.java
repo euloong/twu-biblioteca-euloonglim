@@ -8,6 +8,7 @@ public class DummyMainMenu implements MainMenu {
     protected boolean showOptionsHasBeenCalled  = false;
     protected boolean displayAvailableBooksToCheckOutHasBeenCalled   = false;
     protected boolean displayAvailableMoviesHasBeenCalled = false;
+    protected boolean displayAvailableMoviesToCheckOutHasBeenCalled = false;
 
     //[#1.2 & #1.3]
     @Override
@@ -42,4 +43,8 @@ public class DummyMainMenu implements MainMenu {
     public void displayAvailableMovies() {
         displayAvailableMoviesHasBeenCalled = true;
     }
+
+    //[#2.2]
+    @Override
+    public void displayAvailableMoviesToCheckOut() { displayAvailableMoviesToCheckOutHasBeenCalled = true; }
 }

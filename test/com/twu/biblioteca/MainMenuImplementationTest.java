@@ -33,7 +33,8 @@ public class MainMenuImplementationTest {
                 "1. List books\n" +
                 "2. Checkout a book\n" +
                 "3. List movies\n" +
-                "4. Quit\n" +
+                "4. Checkout a movie\n" +
+                "5. Quit\n" +
                 ">" , output.toString());
     }
 
@@ -82,5 +83,23 @@ public class MainMenuImplementationTest {
 
         assertEquals("Sorry, that book is not available" +
                 System.getProperty("line.separator"), output.toString());
+    }
+
+    @Test //[#2.2]
+    public void shouldNotDisplayMovieWhenCheckedOut() {
+        System.setIn(new ByteArrayInputStream((
+                "3" + System.getProperty("line.separator") +
+                        "1" + System.getProperty("line.separator")).getBytes()));
+
+        mainMenuImplementation.checkOutMovie();
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+
+        mainMenuImplementation.displayAvailableMovies();
+
+        assertEquals("1. Star Wars: Episode IV - A New Hope (1977) | Director: George Lucas | Movie Rating: 9\n" +
+                "2. Star Wars: Episode V - The Empire Strikes Back (1980) | Director: Irvin Kershner | Movie Rating: 10\n",
+                output.toString());
     }
 }

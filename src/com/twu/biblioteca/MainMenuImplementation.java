@@ -10,7 +10,8 @@ public class MainMenuImplementation implements MainMenu {
             "1. List books",
             "2. Checkout a book",
             "3. List movies",
-            "4. Quit"));
+            "4. Checkout a movie",
+            "5. Quit"));
 
     private ArrayList<Item> books = new ArrayList<Item>(Arrays.asList(
             new Book("Clean Code", "Robert C. Martin", 2008, false),
@@ -19,9 +20,9 @@ public class MainMenuImplementation implements MainMenu {
     // private Object index;
 
     private ArrayList<Item> movies = new ArrayList<Item>(Arrays.asList(
-            new Movie("Star Wars: Episode IV - A New Hope", "George Lucas", 1977, "9"),
-            new Movie("Star Wars: Episode V - The Empire Strikes Back", "Irvin Kershner", 1980, "10"),
-            new Movie("Star Wars: Episode VI - Return of the Jedi", "Richard Marquand", 1983, "8")));
+            new Movie("Star Wars: Episode IV - A New Hope", "George Lucas", 1977, "9", false),
+            new Movie("Star Wars: Episode V - The Empire Strikes Back", "Irvin Kershner", 1980, "10", false),
+            new Movie("Star Wars: Episode VI - Return of the Jedi", "Richard Marquand", 1983, "8", false)));
 
     public void showWelcomeMessage() {
         System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
@@ -35,45 +36,46 @@ public class MainMenuImplementation implements MainMenu {
         System.out.println("Goodbye!");
     }
 
-    public void showBookCheckOutReferenceMessage() {
-        System.out.println("Enter the number of the book you want to checkout:");
+    private void showItemsCheckOutReferenceMessage(ArrayList<Item> items) {
+        System.out.println("Enter the number of the " + items + " you want to checkout:"); //To Fix: prints object
     }
 
-    public void showNoBooksMessage() {
-        System.out.println("Sorry, no books left!");
+    private void showNoItemsMessage(ArrayList<Item> items) {
+        System.out.println("Sorry, no " + items + " left!"); //To Fix: prints object
     }
 
-    public void showSuccessfulCheckOutMessage() {
-        System.out.println("Thank you! Enjoy the book");
+    public void showSuccessfulItemCheckOutMessage(ArrayList<Item> items) {
+        System.out.println("Thank you! Enjoy the " + items); //To Fix: prints object
     }
 
-    public void showUnsuccessfulCheckOutMessage() {
-        System.out.println("Sorry, that book is not available");
+    private void showUnsuccessfulItemCheckOutMessage(ArrayList<Item> items) {
+        System.out.println("Sorry, that " + items + " is not available"); //To Fix: prints object
     }
 
-    public int countCheckedOutBooks() {
-        int numberOfCheckedOutBooks = 0;
-        for (Item item : this.books) {
+    private int countCheckedOutItems(ArrayList<Item> items) {
+        int numberOfCheckedOutItems = 0;
+        for (Item item : items) {
             if (item.isCheckedOut()) {
-                numberOfCheckedOutBooks++;
+                numberOfCheckedOutItems++;
             }
         }
-        return numberOfCheckedOutBooks;
+        return numberOfCheckedOutItems;
     }
 
     public void displayAvailableBooks() {
-        if (this.books.size() == countCheckedOutBooks()) {
-            showNoBooksMessage();
-        } else {
-            displayItems(this.books);
-        }
+        displayAvailableItems(this.books);
     }
 
     public void displayAvailableMovies() {
-        //  if (this.movies.size() == countCheckedOutMovies()) {
-        //      showNoMoviesMessage();
-        //  } else {
-        displayItems(this.movies);
+        displayAvailableItems(this.movies);
+    }
+
+    private void displayAvailableItems(ArrayList<Item> items) {
+        if (items.size() == countCheckedOutItems(items)) {
+            showNoItemsMessage(items);
+        } else {
+            displayItems(items);
+        }
     }
 
     private void displayItems(ArrayList<Item> items) {
@@ -86,45 +88,61 @@ public class MainMenuImplementation implements MainMenu {
         }
     }
 
-    public void displayAvailableBooksToCheckOut() {
-        if (this.books.size() == countCheckedOutBooks()) {
-            showNoBooksMessage();
+   public void displayAvailableBooksToCheckOut() {
+       displayAvailableItemsToCheckOut(this.books);
+   }
+
+   public void displayAvailableMoviesToCheckOut() {
+       displayAvailableItemsToCheckOut(this.movies);
+   }
+
+    public void displayAvailableItemsToCheckOut(ArrayList<Item> items) {
+        if (items.size() == countCheckedOutItems(items)) {
+            showNoItemsMessage(items);
         } else {
-            displayAvailableBooks();
-            showBookCheckOutReferenceMessage();
-            checkOutBook();
+            displayAvailableItems(items);
+            showItemsCheckOutReferenceMessage(items);
+            checkOutItems(items);
         }
     }
 
-    public void checkOutBook() {
+   public void checkOutBook() { //used by test to check display
+        checkOutItems(this.books);
+    }
+
+    public void checkOutMovie() { //used by test to check display
+       checkOutItems(this.movies);
+    }
+
+    private void checkOutItems(ArrayList<Item> items) {
         try {
-            checkUserSelectedValidBook();
+            checkUserSelectedValidItem(items);
         } catch (NumberFormatException e) {
-            showUnsuccessfulCheckOutMessage();
+            showUnsuccessfulItemCheckOutMessage(items);
         }
     }
 
-    public void checkUserSelectedValidBook() {
+    public void checkUserSelectedValidItem(ArrayList<Item> items) {
         int index = Integer.parseInt(userInput()) - 1;
-        if (index >= 0 && index < this.books.size()) {
-            bookIsCheckedOutOrNot(index);
+        if (index >= 0 && index < items.size()) {
+            itemIsCheckedOutOrNot(items, index);
         } else {
-            showUnsuccessfulCheckOutMessage();
+            showUnsuccessfulItemCheckOutMessage(items);
         }
     }
 
     public String userInput() {
-        Scanner bookScanner = new Scanner(System.in);
-        return bookScanner.next();
+        Scanner itemScanner = new Scanner(System.in);
+        return itemScanner.next();
     }
 
-    public void bookIsCheckedOutOrNot(int index) {
-        Item item = this.books.get(index);
+    public void itemIsCheckedOutOrNot(ArrayList<Item> items, int index) {
+        Item item = items.get(index);
         if (!item.isCheckedOut()) {
             item.setCheckedOut();
-            showSuccessfulCheckOutMessage();
+            showSuccessfulItemCheckOutMessage(items);
         } else {
-            showUnsuccessfulCheckOutMessage();
+            showUnsuccessfulItemCheckOutMessage(items);
         }
     }
 

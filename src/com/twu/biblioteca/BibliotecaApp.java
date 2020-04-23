@@ -41,6 +41,10 @@ public class BibliotecaApp {
                 mainMenu.showOptions();
                 break;
             case "4":
+                mainMenu.displayAvailableMoviesToCheckOut();
+                mainMenu.showOptions();
+                break;
+            case "5":
                 mainMenu.showGoodbyeMessage();
                active = false;
                 break;
