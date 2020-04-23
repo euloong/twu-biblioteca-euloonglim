@@ -11,4 +11,7 @@ public interface MainMenu {
     void showOptions();
     void displayAvailableBooksToCheckOut();
 
+    //[#2.1]
+    void displayAvailableMovies();
+
 }

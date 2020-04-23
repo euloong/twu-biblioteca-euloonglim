@@ -29,7 +29,7 @@ public class BibliotecaAppTest {
 
     @Test //[#1.6]
     public void showGoodbyeMessageCalled() {
-        String userInput = "3";
+        String userInput = "4";
 
         bibliotecaApp.switchOptions(dummyMainMenu, userInput);
 
@@ -53,4 +53,15 @@ public class BibliotecaAppTest {
 
         assertTrue(dummyMainMenu.showOptionsHasBeenCalled);
     }
+
+    @Test //[#2.1]
+    public void displayAvailableMoviesCalled() {
+        String userInput = "3";
+
+        bibliotecaApp.switchOptions(dummyMainMenu, userInput);
+
+        assertTrue(dummyMainMenu.displayAvailableMoviesHasBeenCalled);
+    }
+
+
 }

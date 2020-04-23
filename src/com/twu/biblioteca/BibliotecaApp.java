@@ -37,6 +37,10 @@ public class BibliotecaApp {
                 mainMenu.showOptions();
                 break;
             case "3":
+                mainMenu.displayAvailableMovies();
+                mainMenu.showOptions();
+                break;
+            case "4":
                 mainMenu.showGoodbyeMessage();
                active = false;
                 break;
