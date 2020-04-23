@@ -11,9 +11,8 @@ public class BibliotecaAppTest {
 
     @Test //[#1.2 & #1.3]
     public void displayAvailableBooksCalled() {
-        String userInput = "1";
 
-        bibliotecaApp.switchOptions(dummyMainMenu, userInput);
+        bibliotecaApp.switchOptions(dummyMainMenu, "1");
 
         assertTrue(dummyMainMenu.displayAvailableBooksHasBeenCalled);
     }
@@ -62,6 +61,4 @@ public class BibliotecaAppTest {
 
         assertTrue(dummyMainMenu.displayAvailableMoviesHasBeenCalled);
     }
-
-
 }

@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-public class Movie {
+public class Movie implements Item {
     private final String title;
     private final String director;
     private final int year;
@@ -15,14 +15,17 @@ public class Movie {
        // this.checkedOut = checkedOut;
     }
 
-   // public boolean isCheckedOut() {
-       // return checkedOut;}
-
-    //public void setCheckedOut() {
-        //this.checkedOut = true;
-    //}
-
     public String toString() {
         return title + " (" + year + ")" + " | " + "Director: " + director + " | " + "Movie Rating: " + movieRating;
+    }
+
+    @Override
+    public boolean isCheckedOut() {
+        return false;
+    }
+
+    @Override
+    public void setCheckedOut() {
+
     }
 }
