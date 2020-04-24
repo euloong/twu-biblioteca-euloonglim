@@ -22,4 +22,8 @@ public class User {
         return libraryNumber + password;
     }
 
+    public boolean isUserValid(String libraryNumber, String password) {
+        return getLibraryNumber().equals(libraryNumber) && getPassword().equals(password);
+    }
+
 }

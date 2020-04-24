@@ -6,11 +6,11 @@ public class Book implements Item {
     private final int yearPublished;
     private boolean checkedOut;
 
-    public Book(String title, String author, int yearPublished, boolean checkedOut) {
+    public Book(String title, String author, int yearPublished) {
         this.title = title;
         this.author = author;
         this.yearPublished = yearPublished;
-        this.checkedOut = checkedOut;
+        this.checkedOut = false;
     }
 
    @Override
