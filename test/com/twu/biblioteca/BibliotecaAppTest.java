@@ -28,7 +28,7 @@ public class BibliotecaAppTest {
 
     @Test //[#1.6]
     public void showGoodbyeMessageCalled() {
-        String userInput = "4";
+        String userInput = "5";
 
         bibliotecaApp.switchOptions(dummyMainMenu, userInput);
 
@@ -60,5 +60,14 @@ public class BibliotecaAppTest {
         bibliotecaApp.switchOptions(dummyMainMenu, userInput);
 
         assertTrue(dummyMainMenu.displayAvailableMoviesHasBeenCalled);
+    }
+
+    @Test //[#2.2]
+    public void displayAvailableMoviesToCheckOutCalled() {
+        String userInput = "4";
+
+        bibliotecaApp.switchOptions(dummyMainMenu, userInput);
+
+        assertTrue(dummyMainMenu.displayAvailableMoviesToCheckOutHasBeenCalled);
     }
 }

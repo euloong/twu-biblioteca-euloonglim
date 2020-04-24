@@ -9,9 +9,13 @@ public interface MainMenu {
     void showGoodbyeMessage();
 
     void showOptions();
-    void displayAvailableBooksToCheckOut();
+    //[#2.2]
+    void displayAvailableMoviesToCheckOut();
 
     //[#2.1]
     void displayAvailableMovies();
+
+    void displayAvailableBooksToCheckOut();
+
 
 }
