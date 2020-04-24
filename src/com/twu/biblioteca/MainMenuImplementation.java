@@ -37,19 +37,35 @@ public class MainMenuImplementation implements MainMenu {
     }
 
     private void showItemsCheckOutReferenceMessage(ArrayList<Item> items) {
-        System.out.println("Enter the number of the " + items + " you want to checkout:"); //To Fix: prints object
+        if (items == this.books) {
+            System.out.println("Enter the number of the book you want to checkout:");
+        } else if (items == this.movies) {
+            System.out.println("Enter the number of the movie you want to checkout:");
+        }
     }
 
     private void showNoItemsMessage(ArrayList<Item> items) {
-        System.out.println("Sorry, no " + items + " left!"); //To Fix: prints object
+        if (items == this.books) {
+        System.out.println("Sorry, no books left!");
+        } else if (items == this.movies) {
+            System.out.println("Sorry, no movies left!");
+        }
     }
 
     public void showSuccessfulItemCheckOutMessage(ArrayList<Item> items) {
-        System.out.println("Thank you! Enjoy the " + items); //To Fix: prints object
+        if (items == this.books) {
+            System.out.println("Thank you! Enjoy the book");
+        } else if (items == this.movies) {
+            System.out.println("Thank you! Enjoy the movie");
+        }
     }
 
     private void showUnsuccessfulItemCheckOutMessage(ArrayList<Item> items) {
-        System.out.println("Sorry, that " + items + " is not available"); //To Fix: prints object
+        if (items == this.books) {
+            System.out.println("Sorry, that book is not available");
+        } else if (items == this.movies) {
+            System.out.println("Sorry, that movie is not available");
+        }
     }
 
     private int countCheckedOutItems(ArrayList<Item> items) {
@@ -106,11 +122,11 @@ public class MainMenuImplementation implements MainMenu {
         }
     }
 
-   public void checkOutBook() { //used by test to check display
+   public void checkOutBook() { //used by test to check text displayed
         checkOutItems(this.books);
     }
 
-    public void checkOutMovie() { //used by test to check display
+    public void checkOutMovie() { //used by test to check text displayed
        checkOutItems(this.movies);
     }
 
