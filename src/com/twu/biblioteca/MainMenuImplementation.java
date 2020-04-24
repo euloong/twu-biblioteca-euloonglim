@@ -24,6 +24,9 @@ public class MainMenuImplementation implements MainMenu {
             new Movie("Star Wars: Episode V - The Empire Strikes Back", "Irvin Kershner", 1980, "10", false),
             new Movie("Star Wars: Episode VI - Return of the Jedi", "Richard Marquand", 1983, "8", false)));
 
+    private ArrayList<User> users = new ArrayList<>(Arrays.asList(
+            new User("123-1234", "password")));
+
     public void showWelcomeMessage() {
         System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
     }
@@ -169,4 +172,29 @@ public class MainMenuImplementation implements MainMenu {
         }
         System.out.print(">");
     }
+
+    public boolean showUserLogin() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please login with your library number (in the format xxx-xxxx):\n");
+        String libraryNumber = scanner.nextLine();
+        System.out.print("Please enter your password):\n");
+        String password = scanner.nextLine();
+
+        return validateUser(libraryNumber, password);
+
+    }
+
+    public boolean validateUser(String libraryNumber, String password) {
+        boolean validUser = false;
+        for (User user : this.users) {
+            if (user.getLibraryNumber().equals(libraryNumber) && user.getPassword().equals(password)) {
+                validUser = true;
+            } else {
+                validUser = false;
+            }
+        }
+        return validUser;
+    }
+
+
 }

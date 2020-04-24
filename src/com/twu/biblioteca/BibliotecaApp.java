@@ -5,13 +5,24 @@ import java.util.Scanner;
 
 public class BibliotecaApp {
 
+
     public static void main(String[] args) {
         MainMenuImplementation mainMenuImplementation = new MainMenuImplementation();
         BibliotecaApp bibliotecaApp = new BibliotecaApp();
 
         mainMenuImplementation.showWelcomeMessage();
-        mainMenuImplementation.showOptions();
-        bibliotecaApp.manageOptions(mainMenuImplementation);
+
+        boolean userState = mainMenuImplementation.showUserLogin();
+        bibliotecaApp.manageUser(userState, mainMenuImplementation, bibliotecaApp);
+    }
+
+    public void manageUser(boolean userState, MainMenuImplementation mainMenuImplementation, BibliotecaApp bibliotecaApp) {
+        if (userState == true) {
+            mainMenuImplementation.showOptions();
+            bibliotecaApp.manageOptions(mainMenuImplementation);
+        } else {
+            mainMenuImplementation.showGoodbyeMessage();
+        }
     }
 
     public void manageOptions(MainMenu mainMenu) {
