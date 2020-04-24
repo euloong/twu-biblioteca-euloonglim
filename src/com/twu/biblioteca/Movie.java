@@ -7,12 +7,12 @@ public class Movie implements Item {
     private final String movieRating;
     private boolean checkedOut;
 
-    public Movie(String title, String director, int year, String movieRating, boolean checkedOut) {
+    public Movie(String title, String director, int year, String movieRating) {
         this.title = title;
         this.director = director;
         this.year = year;
         this.movieRating = movieRating;
-        this.checkedOut = checkedOut;
+        this.checkedOut = false;
     }
 
     public String toString() {

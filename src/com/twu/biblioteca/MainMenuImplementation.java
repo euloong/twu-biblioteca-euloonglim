@@ -14,18 +14,14 @@ public class MainMenuImplementation implements MainMenu {
             "5. Quit"));
 
     private ArrayList<Item> books = new ArrayList<Item>(Arrays.asList(
-            new Book("Clean Code", "Robert C. Martin", 2008, false),
-            new Book("Don't Make Me Think", "Steve Krug", 2000, false),
-            new Book("Test Driven Development", "Kent Beck", 2000, false)));
-    // private Object index;
+            new Book("Clean Code", "Robert C. Martin", 2008),
+            new Book("Don't Make Me Think", "Steve Krug", 2000),
+            new Book("Test Driven Development", "Kent Beck", 2000)));
 
     private ArrayList<Item> movies = new ArrayList<Item>(Arrays.asList(
-            new Movie("Star Wars: Episode IV - A New Hope", "George Lucas", 1977, "9", false),
-            new Movie("Star Wars: Episode V - The Empire Strikes Back", "Irvin Kershner", 1980, "10", false),
-            new Movie("Star Wars: Episode VI - Return of the Jedi", "Richard Marquand", 1983, "8", false)));
-
-    private ArrayList<User> users = new ArrayList<>(Arrays.asList(
-            new User("123-1234", "password")));
+            new Movie("Star Wars: Episode IV - A New Hope", "George Lucas", 1977, "9"),
+            new Movie("Star Wars: Episode V - The Empire Strikes Back", "Irvin Kershner", 1980, "10"),
+            new Movie("Star Wars: Episode VI - Return of the Jedi", "Richard Marquand", 1983, "8")));
 
     public void showWelcomeMessage() {
         System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
@@ -49,7 +45,7 @@ public class MainMenuImplementation implements MainMenu {
 
     private void showNoItemsMessage(ArrayList<Item> items) {
         if (items == this.books) {
-        System.out.println("Sorry, no books left!");
+            System.out.println("Sorry, no books left!");
         } else if (items == this.movies) {
             System.out.println("Sorry, no movies left!");
         }
@@ -107,13 +103,13 @@ public class MainMenuImplementation implements MainMenu {
         }
     }
 
-   public void displayAvailableBooksToCheckOut() {
-       displayAvailableItemsToCheckOut(this.books);
-   }
+    public void displayAvailableBooksToCheckOut() {
+        displayAvailableItemsToCheckOut(this.books);
+    }
 
-   public void displayAvailableMoviesToCheckOut() {
-       displayAvailableItemsToCheckOut(this.movies);
-   }
+    public void displayAvailableMoviesToCheckOut() {
+        displayAvailableItemsToCheckOut(this.movies);
+    }
 
     public void displayAvailableItemsToCheckOut(ArrayList<Item> items) {
         if (items.size() == countCheckedOutItems(items)) {
@@ -125,12 +121,14 @@ public class MainMenuImplementation implements MainMenu {
         }
     }
 
-   public void checkOutBook() { //used by test to check text displayed
+    //used by test to check only available books are displayed
+    public void checkOutBook() {
         checkOutItems(this.books);
     }
 
-    public void checkOutMovie() { //used by test to check text displayed
-       checkOutItems(this.movies);
+    //used by test to check only available books are displayed
+    public void checkOutMovie() {
+        checkOutItems(this.movies);
     }
 
     private void checkOutItems(ArrayList<Item> items) {
@@ -172,29 +170,4 @@ public class MainMenuImplementation implements MainMenu {
         }
         System.out.print(">");
     }
-
-    public boolean showUserLogin() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Please login with your library number (in the format xxx-xxxx):\n");
-        String libraryNumber = scanner.nextLine();
-        System.out.print("Please enter your password):\n");
-        String password = scanner.nextLine();
-
-        return validateUser(libraryNumber, password);
-
-    }
-
-    public boolean validateUser(String libraryNumber, String password) {
-        boolean validUser = false;
-        for (User user : this.users) {
-            if (user.getLibraryNumber().equals(libraryNumber) && user.getPassword().equals(password)) {
-                validUser = true;
-            } else {
-                validUser = false;
-            }
-        }
-        return validUser;
-    }
-
-
 }
