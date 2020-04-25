@@ -1,0 +1,79 @@
+Biblioteca: SQL Database Queries
+
+1. Who checked out the book 'The Hobbit’?
+
+Answer: Anand Beck
+
+SQL Query:
+SELECT member.name
+FROM book, checkout_item, member
+WHERE member.id = checkout_item.member_id
+AND book.id = checkout_item.book_id
+AND book.title = 'The Hobbit';
+
+2. How many people have not checked out anything?
+
+Answer: 37 out of 42 members
+
+SQL Query:
+SELECT count(*) FROM member WHERE member.id
+NOT IN (SELECT checkout_item.member_id FROM checkout_item);
+
+3. What books and movies aren't checked out?
+
+Answer:
+Movies:
+Thin Red Line
+Crouching Tiger, Hidden Dragon
+Lawrence of Arabia
+Office Space
+
+Books:
+1984
+Catcher in the Rye
+Domain Driven Design
+Fellowship of the Ring
+To Kill a Mockingbird
+Tom Sawyer
+
+SQL Query:
+
+SELECT movie.title FROM movie WHERE movie.id
+NOT IN
+(SELECT checkout_item.movie_id FROM checkout_item
+WHERE checkout_item.movie_id IS NOT NULL)
+UNION
+SELECT book.title FROM book WHERE book.id
+NOT IN
+(SELECT checkout_item.book_id FROM checkout_item
+WHERE checkout_item.book_id IS NOT NULL);
+
+4. Add the book 'The Pragmatic Programmer', and add yourself as a member. Check out 'The Pragmatic Programmer'. Use your query from question 1 to verify that you have checked it out. Also, provide the SQL used to update the database.
+SQL Queries:
+a. Add book
+INSERT INTO book(id, title) VALUES (11, 'The Pragmatic Programmer');
+
+b. Add member
+INSERT INTO member(id, name) VALUES (43, 'Eu-Loong Lim');
+
+c. Update JOIN table
+INSERT INTO checkout_item (book_id, member_id) VALUES (11, 43);
+
+d. Updated query from question 1
+SELECT member.name
+FROM book, checkout_item, member
+WHERE member.id = checkout_item.member_id
+AND book.id = checkout_item.book_id
+AND book.title = 'The Pragmatic Programmer';
+
+5. Who has checked out more than 1 item?
+
+Answer: Anand Beck & Frank Smith
+
+SQL Query:
+
+SELECT member.name
+FROM member, checkout_item
+WHERE member.id = checkout_item.member_id
+GROUP BY member.name
+HAVING COUNT (*) >1
